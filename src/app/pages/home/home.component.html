@@ -1,0 +1,20 @@
+<app-container [charactersList$]="homeCharactersList$" [searchCharacterName]="search">
+    <h1>Inicio</h1>
+    <div class="search">
+        <input name="Pesquisar" [formControl]="search" placeholder="" />
+        <label>
+            Pesquisar
+        </label>
+    </div>
+
+    <div not-found *ngIf="(onError$ | async) as erro">
+        <div class="empty">
+            <h2>Nada foi encontrado</h2>
+            <p>Tente realizar uma nova busca</p>
+        </div>
+    </div>
+
+    <div pagination *ngIf="!(onError$ | async) && (pagination$ | async) as pageInfo">
+        <app-pagination pagination [page]="pageInfo" (changePageEmit)="changePage($event)" />
+    </div>
+</app-container>
